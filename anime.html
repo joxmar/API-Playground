@@ -11,7 +11,7 @@
 <body class="bg-gray-900 text-gray-100 min-h-screen p-6 font-sans">
 
   <header class="mb-10 flex justify-center">
-    <div class="relative w-full max-w-xl">
+    <form id="search-form" class="relative w-full max-w-xl">
       <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
         <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg">
@@ -19,12 +19,12 @@
             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
         </svg>
       </div>
-      <input id="search" type="search"
+      <input id="search-field" type="search"
         class="block w-full p-4 pl-10 text-sm text-white border border-gray-700 rounded-lg bg-gray-800 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-400"
         placeholder="Search for anime..." required>
       <button id="search-button" type="submit"
         class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
-    </div>
+    </form>
   </header>
 
   <main class="container mx-auto">
@@ -86,7 +86,7 @@
           </div>
         </div>
         <div class="p-5">
-          <h2 class="text-xl font-bold mb-2 text-white truncate">${anime.title}</h2>
+          <h2 class="text-xl font-bold mb-2 text-white">${anime.title}</h2>
           <div class="flex items-center text-gray-400 text-sm">
             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg">
@@ -104,10 +104,12 @@
       animeResults.appendChild(fragment);
     }
 
-    const searchInput = document.getElementById('search');
-    const searchButton = document.getElementById('search-button');
+    const searchInput = document.getElementById('search-field');
+    const searchForm = document.getElementById('search-form');
 
-    searchButton.addEventListener('click', () => {
+
+    searchForm.addEventListener('submit', (event) => {
+      event.preventDefault();
       const query = searchInput.value.toLowerCase();
       fetchData(query);
     });
